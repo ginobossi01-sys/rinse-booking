@@ -1,3 +1,4 @@
+throw new Error("TEST MIDDLEWARE CRASH");
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
