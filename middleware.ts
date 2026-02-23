@@ -1,3 +1,4 @@
+console.log("NEW MIDDLEWARE RUNNING")
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
