@@ -1,19 +1,16 @@
-throw new Error("TEST MIDDLEWARE CRASH");
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
-  console.log("MIDDLEWARE V2 ACTIVE")
+  const { pathname } = request.nextUrl
 
-  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin")
-
-  if (!isAdminRoute) {
+  if (!pathname.startsWith("/admin")) {
     return NextResponse.next()
   }
 
-  const cookie = request.cookies.get("admin_auth")
+  const isLoggedIn = request.cookies.get("admin_auth")?.value === "true"
 
-  if (!cookie) {
+  if (!isLoggedIn) {
     return NextResponse.redirect(new URL("/admin-login", request.url))
   }
 
@@ -21,5 +18,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/admin"],
+  matcher: ["/admin/:path*"],
 }
