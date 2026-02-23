@@ -1,8 +1,9 @@
-console.log("NEW MIDDLEWARE RUNNING")
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
+  console.log("MIDDLEWARE V2 ACTIVE")
+
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin")
 
   if (!isAdminRoute) {
@@ -19,5 +20,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/admin"],
 }
